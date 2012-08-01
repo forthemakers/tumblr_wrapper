@@ -21,6 +21,10 @@ class TumblrWrapper::Client
     end
   end
 
+  def access_token_from_hash(token_hash)
+    @access_token = OAuth::AccessToken.from_hash(consumer, token_hash)
+  end
+
   def token
     @access_token.try(:token)
   end
