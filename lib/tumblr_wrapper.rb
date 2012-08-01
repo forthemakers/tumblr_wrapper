@@ -1,6 +1,9 @@
+require 'json'
 require 'oauth'
 require 'rest-client'
 require "tumblr_wrapper/version"
+require "tumblr_wrapper/validators"
+require "tumblr_wrapper/http"
 require "tumblr_wrapper/client"
 require "tumblr_wrapper/resource"
 require "tumblr_wrapper/blog_resource"

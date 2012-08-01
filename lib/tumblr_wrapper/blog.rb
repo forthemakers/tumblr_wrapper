@@ -3,20 +3,21 @@ class TumblrWrapper::Blog < TumblrWrapper::BlogResource
   # Required parameters: N/A
   # http://www.tumblr.com/docs/en/api/v2#blog-info
   def info
-    request('info')
+    http_get('info')
   end
 
   ##
   # Required parameters: N/A
   # http://www.tumblr.com/docs/en/api/v2#blog-followers
   def followers(parameters={})
-    oauth_request('followers', parameters)
+    http_get('followers', {signed: true}, parameters)
   end
 
   ##
   # Required parameters: N/A
   # http://www.tumblr.com/docs/en/api/v2#posts
   def posts(parameters={})
-    request('posts', parameters)
+    # for some reason the / is needed for this endpoint... -RH
+    http_get('posts/', parameters)
   end
 end

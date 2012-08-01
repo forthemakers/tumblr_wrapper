@@ -39,7 +39,7 @@ tumblr oauth is strict, you need to save the oauth verifier from the response:
 
 If you have the token and secret for your user:
 
-    access_token = client.access_token_from_hash(oauth_token: "TOKEN", oauth_token_secret: "SECRET")
+    access_token = client.access_token_from_token_and_secret("TOKEN", "SECRET")
 
 The access token is memoized in either case, so you can call it again once it was set:
 

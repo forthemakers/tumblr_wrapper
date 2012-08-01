@@ -10,7 +10,7 @@ describe TumblrWrapper::Blog do
 
   describe '.info' do
     it "makes an api request" do
-      blog.should_receive(:request).with('info')
+      blog.should_receive(:http_get).with('info')
 
       blog.info
     end
@@ -18,13 +18,13 @@ describe TumblrWrapper::Blog do
 
   describe "followers" do
     it "makes an oauth request" do
-      blog.should_receive(:oauth_request).with('followers', {})
+      blog.should_receive(:http_get).with('followers', {signed: true}, {})
 
       blog.followers
     end
 
     it "accepts parameters" do
-      blog.should_receive(:oauth_request).with('followers', { limit: 20, offset: 5 })
+      blog.should_receive(:http_get).with('followers', {signed: true}, { limit: 20, offset: 5 })
 
       blog.followers({ limit: 20, offset: 5 })
     end
@@ -32,13 +32,13 @@ describe TumblrWrapper::Blog do
 
   describe "posts" do
     it "makes an api request" do
-      blog.should_receive(:request).with('posts', {})
+      blog.should_receive(:http_get).with('posts/', {})
 
       blog.posts
     end
 
     it "accepts type parameter" do
-      blog.should_receive(:request).with('posts', type: 'text')
+      blog.should_receive(:http_get).with('posts/', type: 'text')
 
       blog.posts(type: 'text')
     end

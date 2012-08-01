@@ -15,21 +15,9 @@ class TumblrWrapper::BlogResource < TumblrWrapper::Resource
   end
 
   protected
-  def oauth_request(path, method_type = :get, body = {})
-    validate_oauth
 
-    url = "#{endpoint}/blog/#{hostname}/#{path}"
-    if parameters.present?
-      access_token.request(method_type, url, body)
-    else
-      access_token.request(method_type, url)
-    end
+  def uri
+    "#{TumblrWrapper.endpoint}/blog/#{hostname}"
   end
 
-  def request(path, method_type = :get, parameters = {})
-    parameters.merge!({ api_key: TumblrWrapper.consumer_key })
-    params = (method_type == :get) ? { params: parameters } : parameters
-
-    TumblrWrapper::RestClient.send(method_type, "#{endpoint}/blog/#{hostname}/#{path}", params)
-  end
 end
