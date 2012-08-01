@@ -23,7 +23,7 @@ class TumblrWrapper::Client
 
   def request_token(token = nil, secret=nil)
     if token && secret
-      OAuth::RequestToken.new(consumer, token, secret)
+      @request_token = OAuth::RequestToken.new(consumer, token, secret)
     else
       @request_token
     end
