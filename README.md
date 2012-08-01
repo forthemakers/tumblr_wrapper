@@ -34,6 +34,7 @@ then authorize in browser here:
 
 tumblr oauth is strict, you need to save the oauth verifier from the response:
 
+    client.request_token(request_token, request_token_secret) // set the request token again
     access_token = client.access_token("OAUTH VERIFIER")
 
 If you have the token and secret for your user:

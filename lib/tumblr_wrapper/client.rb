@@ -1,5 +1,5 @@
 class TumblrWrapper::Client
-  attr_reader :consumer, :request_token
+  attr_reader :consumer
   def initialize
     @consumer = OAuth::Consumer.new(
       TumblrWrapper.consumer_key,
@@ -19,6 +19,15 @@ class TumblrWrapper::Client
     else
       @access_token
     end
+  end
+
+  def request_token(token = nil, secret=nil)
+    if token && secret
+      OAuth::RequestToken.new(consumer, token, secret)
+    else
+      @request_token
+    end
+    @request_token
   end
 
   def access_token_from_hash(token_hash)
