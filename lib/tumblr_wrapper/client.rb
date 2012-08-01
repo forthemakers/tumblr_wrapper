@@ -27,7 +27,6 @@ class TumblrWrapper::Client
     else
       @request_token
     end
-    @request_token
   end
 
   def access_token_from_hash(token_hash)
