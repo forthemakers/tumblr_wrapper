@@ -32,13 +32,13 @@ describe TumblrWrapper::Blog do
 
   describe "posts" do
     it "makes an api request" do
-      blog.should_receive(:http_get).with('posts/', {})
+      blog.should_receive(:http_get).with('posts/', {signed: false}, {})
 
       blog.posts
     end
 
     it "accepts type parameter" do
-      blog.should_receive(:http_get).with('posts/', type: 'text')
+      blog.should_receive(:http_get).with('posts/', {signed: false}, type: 'text')
 
       blog.posts(type: 'text')
     end

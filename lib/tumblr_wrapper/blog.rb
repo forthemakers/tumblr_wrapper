@@ -18,6 +18,6 @@ class TumblrWrapper::Blog < TumblrWrapper::BlogResource
   # http://www.tumblr.com/docs/en/api/v2#posts
   def posts(parameters={})
     # for some reason the / is needed for this endpoint... -RH
-    http_get('posts/', parameters)
+    http_get('posts/', {signed: false}, parameters)
   end
 end
