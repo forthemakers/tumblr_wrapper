@@ -15,7 +15,7 @@ require "tumblr_wrapper/post"
 module TumblrWrapper
   ENDPOINT = 'http://api.tumblr.com'
   OAUTH_ENPOINT = 'http://www.tumblr.com'
-  VERSION = 'v2'
+  API_VERSION = 'v2'
 
   def self.consumer_key=(key)
     @@consumer_key = key
@@ -42,7 +42,7 @@ module TumblrWrapper
   end
 
   def self.version
-    VERSION
+    API_VERSION
   end
 
   class NoAccessToken < StandardError
