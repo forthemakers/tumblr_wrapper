@@ -10,7 +10,7 @@ describe TumblrWrapper::Post do
 
   describe "create" do
     it "makes an oauth request with parameters" do
-      post.should_receive(:http_post).with('post', {signed: true}, {:type => 'text'})
+      post.should_receive(:http_post).with('post', {:type => 'text'})
 
       post.create({:type => 'text'})
     end
@@ -30,7 +30,7 @@ describe TumblrWrapper::Post do
 
   describe "update" do
     it "makes an oauth request with parameters" do
-      post.should_receive(:http_post).with('post/edit', {signed: true}, {:id => '1234'})
+      post.should_receive(:http_post).with('post/edit', {:id => '1234'})
 
       post.update({:id => '1234'})
     end
@@ -44,7 +44,7 @@ describe TumblrWrapper::Post do
 
   describe "delete" do
     it "makes an oauth request with parameters" do
-      post.should_receive(:http_post).with('post/delete', {signed: true}, {:id => '1234'})
+      post.should_receive(:http_post).with('post/delete', {:id => '1234'})
 
       post.delete({:id => '1234'})
     end

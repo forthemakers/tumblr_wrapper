@@ -4,42 +4,29 @@ module TumblrWrapper::HTTP
     validate_oauth if opts[:signed]
     connection = Faraday.new TumblrWrapper.endpoint do |conn|
       conn.request :oauth, access_token if opts[:signed]
-      conn.request :json
+      conn.request :url_encoded
       conn.adapter Faraday.default_adapter
     end
     if opts[:signed]
-      connection.get(long_path(path) + encode_params(params))
+      connection.get(long_path(path), params)
     else
       parameters = params.merge({api_key: TumblrWrapper.consumer_key})
       connection.get(long_path(path), parameters)
     end
   end
 
-  def http_post(path,opts={signed: false}, body)
-    validate_oauth if opts[:signed]
+  def http_post(path, body)
+    validate_oauth
     connection = Faraday.new TumblrWrapper.endpoint do |conn|
-      conn.request :oauth, access_token if opts[:signed]
+      conn.request :oauth, access_token
+      conn.request :url_encoded
       conn.adapter Faraday.default_adapter
     end
 
-    connection.post do |request|
-      request.url long_path(path)
-      request.headers['Accept'] = accept
-      request.headers['Content-Type'] = content_type
-      request.body = body.to_json
-    end
+    connection.post long_path(path), body
   end
 
   private
-  def encode_params(parameters_as_hash)
-    if blank?(parameters_as_hash)
-      ""
-    else
-      str = parameters_as_hash.collect{|k,v| "#{k}=#{v}"}.join('&')
-      "?" + URI.escape(str)
-    end
-  end
-
   def content_type
     'application/json'
   end

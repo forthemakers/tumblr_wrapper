@@ -6,7 +6,7 @@ class TumblrWrapper::Post < TumblrWrapper::BlogResource
     validate_present(:type, parameters)
     validate_not_present(:id, parameters)
 
-    http_post('post', {signed: true}, parameters)
+    http_post('post', parameters)
   end
 
   ##
@@ -14,7 +14,7 @@ class TumblrWrapper::Post < TumblrWrapper::BlogResource
   # http://www.tumblr.com/docs/en/api/v2#editing
   def update(parameters = {})
     validate_present(:id, parameters)
-    http_post('post/edit', {signed: true}, parameters)
+    http_post('post/edit', parameters)
   end
 
   ##
@@ -22,6 +22,6 @@ class TumblrWrapper::Post < TumblrWrapper::BlogResource
   # http://www.tumblr.com/docs/en/api/v2#editing
   def delete(parameters = {})
     validate_present(:id, parameters)
-    http_post('post/delete', {signed: true}, parameters)
+    http_post('post/delete', parameters)
   end
 end
