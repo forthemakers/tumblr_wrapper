@@ -32,37 +32,51 @@ then authorize in browser here:
 
     client.authorize_url
 
-tumblr oauth is strict, you need to save the oauth verifier from the response:
+    request_token = client.request_token.token
+    request_token_secret = client.request_token.secret
 
-    client.request_token(request_token, request_token_secret) // set the request token again
-    access_token = client.access_token("OAUTH VERIFIER")
+tumblr oauth is strict, you need the oauth verifier from the response to get the access token:
+
+    client.build_request_token(request_token, request_token_secret)
+    access_token = client.request_access_token("OAUTH VERIFIER")
 
 If you have the token and secret for your user:
 
-    access_token = client.access_token_from_token_and_secret("TOKEN", "SECRET")
+    access_token = client.build_access_token("TOKEN", "SECRET")
 
 The access token is memoized in either case, so you can call it again once it was set:
 
     access_token = client.access_token
+    => {
+          consumer_key: "YOUR APPLICATION KEY",
+          consumer_secret: "YOUR APPLICATION SECRET",
+          oauth_token: 'TOKEN',
+          oauth_secret: 'SECRET',
+        }
 
 To get the first 40 posts of your blog:
 
     blog_resource = TumblrWrapper::BlogResource.new('yourblog.tumblr.com', access_token)
 
-    blog_resource.blog.posts(limit: 40)
+    blog = blog_resource.blow
+    blog.posts(limit: 40)
 
 or with pagination:
 
-    blog_resource.blog.posts(limit: 20, offset: 0)
-    blog_resource.blog.posts(limit: 20, offset: 20)
+    blog.posts(limit: 20, offset: 0)
+    blog.posts(limit: 20, offset: 20)
 
 To post:
 
     blog_resource.post.create({ type: 'text', body: "Hello world." })
 
+To update a post:
+
+    post.update({id: "ID FROM TUMBLR", body: "Goodbye world."})
+
 To delete a post:
 
-    blog_resource.post.delete({id: "ID FROM TUMBLR"})
+    post.delete({id: "ID FROM TUMBLR"})
 
 ## Contributing
 

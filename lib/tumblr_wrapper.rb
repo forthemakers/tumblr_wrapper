@@ -1,6 +1,8 @@
 require 'json'
 require 'oauth'
-require 'rest-client'
+require 'faraday'
+require 'faraday_middleware'
+
 require "tumblr_wrapper/version"
 require "tumblr_wrapper/validators"
 require "tumblr_wrapper/http"
@@ -11,8 +13,9 @@ require "tumblr_wrapper/blog"
 require "tumblr_wrapper/post"
 
 module TumblrWrapper
-  ENDPOINT = 'http://api.tumblr.com/v2'
+  ENDPOINT = 'http://api.tumblr.com'
   OAUTH_ENPOINT = 'http://www.tumblr.com'
+  VERSION = 'v2'
 
   def self.consumer_key=(key)
     @@consumer_key = key
@@ -36,6 +39,10 @@ module TumblrWrapper
 
   def self.endpoint
     ENDPOINT
+  end
+
+  def self.version
+    VERSION
   end
 
   class NoAccessToken < StandardError

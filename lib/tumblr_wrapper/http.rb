@@ -1,29 +1,43 @@
 module TumblrWrapper::HTTP
+
   def http_get(path, opts={signed: false}, params={})
-    url = "#{uri}/#{path}"
+    validate_oauth if opts[:signed]
+    connection = Faraday.new TumblrWrapper.endpoint do |conn|
+      conn.request :oauth, access_token if opts[:signed]
+      conn.request :json
+      conn.adapter Faraday.default_adapter
+    end
     if opts[:signed]
-      validate_oauth
-      blank?(params) ? access_token.get(url, {'Accept'=> accept}) : access_token.get("#{url}?#{encode_params(params)}", {'Accept'=> accept})
+      connection.get(long_path(path) + encode_params(params))
     else
       parameters = params.merge({api_key: TumblrWrapper.consumer_key})
-      RestClient.get(url, params: parameters, accept: accept)
+      connection.get(long_path(path), parameters)
     end
   end
 
   def http_post(path,opts={signed: false}, body)
-    url = "#{uri}/#{path}"
-    if opts[:signed]
-      validate_oauth
-      access_token.post(url, body.to_json, {'Accept'=> accept, 'Content-Type' => content_type})
-    else
-      RestClient.post(url, body, accept: accept, content_type: content_type)
+    validate_oauth if opts[:signed]
+    connection = Faraday.new TumblrWrapper.endpoint do |conn|
+      conn.request :oauth, access_token if opts[:signed]
+      conn.adapter Faraday.default_adapter
+    end
+
+    connection.post do |request|
+      request.url long_path(path)
+      request.headers['Accept'] = accept
+      request.headers['Content-Type'] = content_type
+      request.body = body.to_json
     end
   end
 
   private
   def encode_params(parameters_as_hash)
-    str = parameters_as_hash.collect{|k,v| "#{k}=#{v}"}.join('&')
-    URI.escape(str)
+    if blank?(parameters_as_hash)
+      ""
+    else
+      str = parameters_as_hash.collect{|k,v| "#{k}=#{v}"}.join('&')
+      "?" + URI.escape(str)
+    end
   end
 
   def content_type
@@ -34,7 +48,7 @@ module TumblrWrapper::HTTP
     'application/json'
   end
 
-  def uri
+  def long_path(path)
     raise NotImplementedError
   end
 

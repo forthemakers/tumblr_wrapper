@@ -15,3 +15,10 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+spec/vcr_cassettes/access_token.yml
+spec/vcr_cassettes/authorize_url.yml
+spec/vcr_cassettes/blog_followers.yml
+spec/vcr_cassettes/blog_info.yml
+spec/vcr_cassettes/blog_posts.yml
+spec/vcr_cassettes/post_create.yml
+spec/support/token_helper.rb

@@ -19,5 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'vcr'
   gem.add_development_dependency 'webmock'
   gem.add_dependency 'oauth'
-  gem.add_dependency 'rest-client'
+  gem.add_dependency 'faraday'
+  gem.add_dependency 'faraday_middleware'
+  gem.add_dependency 'simple_oauth'
 end

@@ -16,8 +16,8 @@ class TumblrWrapper::BlogResource < TumblrWrapper::Resource
 
   protected
 
-  def uri
-    "#{TumblrWrapper.endpoint}/blog/#{hostname}"
+  def long_path(path)
+    "/#{TumblrWrapper.version}/blog/#{hostname}/#{path}"
   end
 
 end
