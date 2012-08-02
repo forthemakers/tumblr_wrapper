@@ -11,6 +11,10 @@ module TokenHelper
     ""
   end
 
+  def blog_title
+    ""
+  end
+
   def access_token
     ""
   end

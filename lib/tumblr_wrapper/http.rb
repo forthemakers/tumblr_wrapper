@@ -5,6 +5,7 @@ module TumblrWrapper::HTTP
     connection = Faraday.new TumblrWrapper.endpoint do |conn|
       conn.request :oauth, access_token if opts[:signed]
       conn.request :url_encoded
+      conn.response :json, :content_type => /\bjson$/
       conn.adapter Faraday.default_adapter
     end
     if opts[:signed]
@@ -20,6 +21,7 @@ module TumblrWrapper::HTTP
     connection = Faraday.new TumblrWrapper.endpoint do |conn|
       conn.request :oauth, access_token
       conn.request :url_encoded
+      conn.response :json, :content_type => /\bjson$/
       conn.adapter Faraday.default_adapter
     end
 

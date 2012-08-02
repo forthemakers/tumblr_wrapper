@@ -33,6 +33,9 @@ describe TumblrWrapper, type: :integration do
 
           blog_resource = TumblrWrapper::Blog.new(blogname, token)
           info = blog_resource.info
+
+          info.body["meta"]["status"].should == 200
+          info.body["response"]["blog"]["title"].should == blog_title
         end
       end
 
