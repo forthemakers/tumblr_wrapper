@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe TumblrWrapper::Post do
-  let(:token) { mock(:token) }
   subject(:post) { TumblrWrapper::Post.new('myblog.tumblr.com') }
 
   it "is a blog resource" do
