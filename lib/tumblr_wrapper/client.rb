@@ -11,8 +11,8 @@ class TumblrWrapper::Client
     @access_token = {
       consumer_key: TumblrWrapper.consumer_key,
       consumer_secret: TumblrWrapper.consumer_secret,
-      oauth_token: token.token,
-      oauth_token_secret: token.secret
+      token: token.token,
+      token_secret: token.secret
     }
   end
 
@@ -24,8 +24,8 @@ class TumblrWrapper::Client
     @access_token = {
       consumer_key: TumblrWrapper.consumer_key,
       consumer_secret: TumblrWrapper.consumer_secret,
-      oauth_token: token,
-      oauth_token_secret: secret }
+      token: token,
+      token_secret: secret }
   end
 
   def consumer

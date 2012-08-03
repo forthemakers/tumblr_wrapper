@@ -24,8 +24,8 @@ describe TumblrWrapper::Client do
 
       token_hash = client.request_access_token('verifier')
 
-      token_hash[:oauth_token].should == 'token'
-      token_hash[:oauth_token_secret].should == 'secret'
+      token_hash[:token].should == 'token'
+      token_hash[:token_secret].should == 'secret'
       token_hash[:consumer_key].should == 'consumer key'
       token_hash[:consumer_secret].should == 'consumer secret'
     end
