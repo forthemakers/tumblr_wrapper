@@ -32,10 +32,15 @@ describe TumblrWrapper, type: :integration do
           token = client.build_access_token(access_token, access_token_secret)
 
           blog_resource = TumblrWrapper::Blog.new(blogname, token)
-          info = blog_resource.info
+          response = blog_resource.info
 
-          info.body["meta"]["status"].should == 200
-          info.body["response"]["blog"]["title"].should == blog_title
+          response.should be_a(TumblrWrapper::Response)
+          response.status.should == 200
+
+          response.meta[:msg].should == "OK"
+          response.meta[:status].should == 200
+
+          response.blog[:title].should == blog_title
         end
       end
 
@@ -45,7 +50,7 @@ describe TumblrWrapper, type: :integration do
           token = client.build_access_token(access_token, access_token_secret)
 
           blog_resource = TumblrWrapper::Blog.new(blogname, token)
-          followers = blog_resource.followers
+          response = blog_resource.followers
         end
       end
 
@@ -55,7 +60,12 @@ describe TumblrWrapper, type: :integration do
           token = client.build_access_token(access_token, access_token_secret)
 
           blog_resource = TumblrWrapper::Blog.new(blogname, token)
-          posts = blog_resource.posts
+          response = blog_resource.posts
+          response.status.should == 200
+
+          response.meta.should be_present
+          response.blog.should be_present
+          response.posts.should be_present
         end
       end
     end

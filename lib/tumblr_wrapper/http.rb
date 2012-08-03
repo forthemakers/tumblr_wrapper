@@ -8,12 +8,14 @@ module TumblrWrapper::HTTP
       conn.response :json, :content_type => /\bjson$/
       conn.adapter Faraday.default_adapter
     end
-    if opts[:signed]
+
+    response = if opts[:signed]
       connection.get(long_path(path), params)
     else
       parameters = params.merge({api_key: TumblrWrapper.consumer_key})
       connection.get(long_path(path), parameters)
     end
+    TumblrWrapper::Response.new(response)
   end
 
   def http_post(path, body)
@@ -25,7 +27,8 @@ module TumblrWrapper::HTTP
       conn.adapter Faraday.default_adapter
     end
 
-    connection.post long_path(path), body
+    response = connection.post long_path(path), body
+    TumblrWrapper::Response.new(response)
   end
 
   private

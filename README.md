@@ -78,6 +78,17 @@ To delete a post:
 
     post.delete({id: "ID FROM TUMBLR"})
 
+The response object is a TumblrWrapper::Response.
+It responds to `:status`, `:meta`, and any of the keys under "response" from tumblr.
+Any of the values which are hashes will have indifferent access.
+For example,
+
+    response = blog.posts
+    response.status.should == 200
+    response.meta[:status].should == 200
+    response.blog[:title].should == "Your Blog Title"
+    response.posts.should be_a(Array)
+
 ## Contributing
 
 1. Fork it

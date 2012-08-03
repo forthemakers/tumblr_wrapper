@@ -1,4 +1,5 @@
 require 'json'
+require 'active_support/all'
 require 'oauth'
 require 'faraday'
 require 'faraday_middleware'
@@ -7,10 +8,11 @@ require "tumblr_wrapper/version"
 require "tumblr_wrapper/validators"
 require "tumblr_wrapper/http"
 require "tumblr_wrapper/client"
-require "tumblr_wrapper/resource"
-require "tumblr_wrapper/blog_resource"
-require "tumblr_wrapper/blog"
-require "tumblr_wrapper/post"
+require "tumblr_wrapper/resources/resource"
+require "tumblr_wrapper/resources/blog_resource"
+require "tumblr_wrapper/resources/blog"
+require "tumblr_wrapper/resources/post"
+require "tumblr_wrapper/response"
 
 module TumblrWrapper
   ENDPOINT = 'http://api.tumblr.com'
