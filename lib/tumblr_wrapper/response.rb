@@ -18,7 +18,7 @@ class TumblrWrapper::Response
 
   def parse_meta
     resp = faraday_response.body["meta"] || {}
-    @meta = resp.with_indifferent_access
+    @meta = resp.respond_to?(:keys) ? resp.with_indifferent_access : resp
   end
 
   def method_missing(meth, *args, &block)
