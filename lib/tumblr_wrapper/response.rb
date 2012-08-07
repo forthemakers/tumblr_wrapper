@@ -1,10 +1,10 @@
 class TumblrWrapper::Response
-  attr_reader :status, :meta
+  attr_reader :status, :message
   def initialize(faraday_response)
     @faraday_response = faraday_response
     @status = faraday_response.status
     @response = faraday_response.body["response"]
-    parse_meta
+    parse_message
   end
 
   private
@@ -16,9 +16,9 @@ class TumblrWrapper::Response
     @response
   end
 
-  def parse_meta
+  def parse_message
     resp = faraday_response.body["meta"] || {}
-    @meta = resp.respond_to?(:keys) ? resp.with_indifferent_access : resp
+    @message = resp.respond_to?(:keys) ? resp['msg'] : nil
   end
 
   def method_missing(meth, *args, &block)

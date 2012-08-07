@@ -37,9 +37,7 @@ describe TumblrWrapper, type: :integration do
           response.should be_a(TumblrWrapper::Response)
           response.status.should == 200
 
-          response.meta[:msg].should == "OK"
-          response.meta[:status].should == 200
-
+          response.message.should == "OK"
           response.blog[:title].should == blog_title
         end
       end
@@ -62,8 +60,7 @@ describe TumblrWrapper, type: :integration do
           blog_resource = TumblrWrapper::Blog.new(blogname, token)
           response = blog_resource.posts
           response.status.should == 200
-
-          response.meta.should be_present
+          response.message.should == "OK"
           response.blog.should be_present
           response.posts.should be_present
         end
