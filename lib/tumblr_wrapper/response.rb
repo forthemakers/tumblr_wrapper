@@ -22,7 +22,7 @@ class TumblrWrapper::Response
   end
 
   def method_missing(meth, *args, &block)
-    if response.keys.include?(meth.to_s)
+    if response && response.keys.include?(meth.to_s)
       r = response[meth.to_s]
       r.respond_to?(:keys) ? r.with_indifferent_access : r
     else
