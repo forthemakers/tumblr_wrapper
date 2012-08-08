@@ -89,6 +89,18 @@ For example,
     response.blog[:title].should == "Your Blog Title"
     response.posts.should be_a(Array)
 
+Additional:
+The date format tumblr expects when you are scheduling a post or updating the date the post was created is a lambda defined here:
+
+    TumblrWrapper.date_format
+
+In Rails 3, for example, you may want to set it up in an initializer:
+
+    Time::DATE_FORMATS[:tumblr] = TumblrWrapper.date_format
+
+    Time.now.to_s(:tumblr)
+    => "2012-08-10 19:12:32 GMT"
+
 ## Contributing
 
 1. Fork it
