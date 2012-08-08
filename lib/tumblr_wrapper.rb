@@ -35,6 +35,10 @@ module TumblrWrapper
     @@consumer_secret
   end
 
+  def self.date_format
+    lambda { |t| t.utc.strftime("%Y-%m-%d %H:%M:%S GMT") }
+  end
+
   def self.oauth_endpoint
     OAUTH_ENDPOINT
   end
