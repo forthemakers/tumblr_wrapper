@@ -1,6 +1,8 @@
 # TumblrWrapper
 
-This is a basic wrapper for the tumblr api written in ruby. It requires Oauth and RestClient.
+This is a basic wrapper for the tumblr api written in ruby 1.9. 
+It uses Faraday and oauth for the requests. 
+Active Support is also required, but could easily be removed if it is a problem.
 I haven't wrapped the response objects yet.
 
 ## Installation
