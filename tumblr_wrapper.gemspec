@@ -22,5 +22,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'oauth'
   gem.add_dependency 'faraday'
   gem.add_dependency 'faraday_middleware'
+  gem.add_dependency 'rake'
   gem.add_dependency 'simple_oauth'
 end
