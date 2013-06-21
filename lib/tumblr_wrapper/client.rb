@@ -2,7 +2,7 @@ class TumblrWrapper::Client
   attr_reader :access_token, :request_token
 
   def authorize_url
-    @request_token = consumer.get_request_token
+    @request_token = consumer.get_request_token({:exclude_callback => true})
     @request_token.authorize_url
   end
 
